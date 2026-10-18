@@ -1,10 +1,10 @@
-package com.codelens.codelens_backend;
+package com.whetstone.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CodelensBackendApplicationTests {
+class WhetstoneBackendApplicationTests {
 
 	@Test
 	void contextLoads() {

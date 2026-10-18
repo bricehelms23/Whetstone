@@ -1,13 +1,13 @@
-package com.codelens.codelens_backend;
+package com.whetstone.backend;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CodelensBackendApplication {
+public class WhetstoneBackendApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CodelensBackendApplication.class, args);
+		SpringApplication.run(WhetstoneBackendApplication.class, args);
 	}
 
 }

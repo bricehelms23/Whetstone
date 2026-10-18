@@ -1,4 +1,4 @@
-package com.codelens.codelens_backend.model;
+package com.whetstone.backend.model;
 
 import java.util.List;
 

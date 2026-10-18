@@ -1,6 +1,6 @@
-package com.codelens.codelens_backend.service;
+package com.whetstone.backend.service;
 
-import com.codelens.codelens_backend.model.AnalysisProject;
+import com.whetstone.backend.model.AnalysisProject;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
