@@ -24,23 +24,9 @@ public class ProjectController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<AnalysisProject> uploadProject(
-            @RequestParam("file") MultipartFile file) {
-
-        try {
-
-            AnalysisProject project =
-                    projectUploadService.processProject(file);
-
-            return ResponseEntity.ok(project);
-
-        } catch (IOException e) {
-
-            return ResponseEntity.internalServerError().build();
-
-        } catch (IllegalArgumentException e) {
-
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<AnalysisProject> uploadProject(@RequestParam("file") MultipartFile file) throws IOException {
+        AnalysisProject project = projectUploadService.processProject(file);
+        return ResponseEntity.ok(project);
     }
+
 }

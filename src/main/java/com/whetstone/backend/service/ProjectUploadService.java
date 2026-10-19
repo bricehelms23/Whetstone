@@ -6,10 +6,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+import java.nio.charset.StandardCharsets;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 @Service 
 public class ProjectUploadService {
@@ -17,8 +21,8 @@ public class ProjectUploadService {
         // Implementation for processing the uploaded project file goes here
         validateFile(file);
 
-        List<String> files = new ArrayList<>();
-        int javaFileCount = 0;
+        Map<String, String> fileContents = new LinkedHashMap<>();
+
 
         try (InputStream inputStream = file.getInputStream(); ZipInputStream zipInputStream = new ZipInputStream(inputStream)) {
             ZipEntry entry;
@@ -34,17 +38,17 @@ public class ProjectUploadService {
                     continue;
                 }
 
-                files.add(fileName);
+                byte[] bytes = zipInputStream.readAllBytes();
+                fileContents.put(fileName, new String(bytes, StandardCharsets.UTF_8));
 
-                if (fileName.endsWith(".java")) {
-                    javaFileCount++;
-                }
             }
         }
 
         String projectName = removeExtension(file.getOriginalFilename());
 
-        return new AnalysisProject(projectName, files.size(), javaFileCount, files);
+        return new AnalysisProject(projectName, fileContents);
+
+
     }
 
     private void validateFile(MultipartFile file) {
@@ -60,7 +64,12 @@ public class ProjectUploadService {
     }
 
     private boolean shouldIgnore(String fileName) {
-        return fileName.startsWith(".git/") || fileName.startsWith("target/") || fileName.startsWith("node_modules/");
+        String normalized = "/" + fileName.replace('\\', '/');
+        return normalized.contains("/.git/") 
+            || normalized.contains("/target/") 
+            || normalized.contains("/node_modules/") 
+            || normalized.contains("/.idea/") 
+            || normalized.contains("/build/");
     }
 
     private String removeExtension(String fileName) {

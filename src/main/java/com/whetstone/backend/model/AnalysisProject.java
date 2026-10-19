@@ -1,18 +1,14 @@
 package com.whetstone.backend.model;
 
-import java.util.List;
+import java.util.Map;
 
 public class AnalysisProject {
-    private String projectName;
-    private int fileCount;
-    private int javaFileCount;
-    private List<String> files;
+    private final String projectName;
+    private final Map<String, String> fileContents;
 
-    public AnalysisProject(String projectName, int fileCount, int javaFileCount, List<String> files) {
+    public AnalysisProject(String projectName, Map<String, String> fileContents) {
         this.projectName = projectName;
-        this.fileCount = fileCount;
-        this.javaFileCount = javaFileCount;
-        this.files = files;
+        this.fileContents = fileContents;
     }
 
     public String getProjectName() {
@@ -20,15 +16,15 @@ public class AnalysisProject {
     }
 
     public int getFileCount() {
-        return fileCount;
+        return fileContents.size();
     }
 
     public int getJavaFileCount() {
-        return javaFileCount;
+        return (int) fileContents.keySet().stream().filter(f -> f.endsWith(".java")).count();
     }
 
-    public List<String> getFiles() {
-        return files;
+    public Map<String, String> getFileContents() {
+        return fileContents;
     }
 
 }
