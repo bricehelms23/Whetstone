@@ -12,8 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * The "prove it" step: Calculator.java -> AST -> method count.
  * Swap the CALCULATOR fixture for the actual Calculator.java from your sample
- * project and adjust the expected count if you want the proof to run against
- * your real upload.
+ * project and adjust the expected count if you want the proof to run against your real upload.
  */
 class JavaSourceParserTest {
 
